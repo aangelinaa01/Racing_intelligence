@@ -11,6 +11,15 @@ public class CarManager : MonoBehaviour
     public Material[] carColors;
     private Renderer carRenderer;
 
+    [Header("Tire Options")]
+    public Material[] tireMaterials; // Материалы для шин
+    public MeshRenderer[] tireRenderers; // Рендереры всех шин на машине
+
+    [Header("Engine Options")]
+    public GameObject[] engineModels; // 3D модели двигателей
+    public Transform engineMountPoint; // Точка крепления двигателя на машине
+    private GameObject currentEngine;
+
     [Header("Car Options")]
     public string[] engineNames = { "V6", "V8", "Electric" };
     public string[] tireNames = { "Sport", "Offroad", "Street" };
@@ -28,34 +37,48 @@ public class CarManager : MonoBehaviour
     public GameObject tirePanel;
     public GameObject enginePanel;
     public GameObject colorPanel;
-    public GameObject repairPanel;
-
-    [Header("Car Movement")]
-    public Transform previewPoint;
-    private Vector3 carOriginalPosition;
-    private Quaternion carOriginalRotation;
 
     void Start()
     {
+        
+        ResetSavedData();
+        
         LoadSelection();
         ShowCar(currentCarIndex);
         UpdateUI();
-        OpenRepairPanel(); // Панель repairPanel открывается сразу при запуске сцены
+        OpenCarSelectionPanel();
+    }
+
+    void OnApplicationQuit()
+    {
+        // Сброс сохранений при закрытии игры
+        ResetSavedData();
     }
 
     public void ShowCar(int index)
+{
+    for (int i = 0; i < cars.Length; i++)
     {
-        for (int i = 0; i < cars.Length; i++)
-        {
-            cars[i].SetActive(i == index);
-        }
-
-        currentCarIndex = Mathf.Clamp(index, 0, cars.Length - 1);
-        GameObject currentCar = cars[currentCarIndex];
-        carRenderer = currentCar.GetComponentInChildren<Renderer>();
-        ApplyColor();
-        UpdateUI();
+        cars[i].SetActive(i == index);
     }
+
+    currentCarIndex = Mathf.Clamp(index, 0, cars.Length - 1);
+    GameObject currentCar = cars[currentCarIndex];
+    carRenderer = currentCar.GetComponentInChildren<Renderer>();
+
+    string colorKey = "ColorIndex_" + currentCarIndex;
+
+    if (PlayerPrefs.HasKey(colorKey))
+    {
+        currentColorIndex = PlayerPrefs.GetInt(colorKey);
+        ApplyColor();
+    }
+    
+    ApplyTires();
+    ApplyEngine();
+    UpdateUI();
+}
+
 
     public void NextCar()
     {
@@ -70,85 +93,128 @@ public class CarManager : MonoBehaviour
     public void NextEngine()
     {
         currentEngineIndex = (currentEngineIndex + 1) % engineNames.Length;
+        ApplyEngine();
         UpdateUI();
     }
 
     public void PrevEngine()
     {
         currentEngineIndex = (currentEngineIndex - 1 + engineNames.Length) % engineNames.Length;
+        ApplyEngine();
         UpdateUI();
     }
 
     public void NextTire()
     {
         currentTireIndex = (currentTireIndex + 1) % tireNames.Length;
+        ApplyTires();
         UpdateUI();
     }
 
     public void PrevTire()
     {
         currentTireIndex = (currentTireIndex - 1 + tireNames.Length) % tireNames.Length;
+        ApplyTires();
         UpdateUI();
     }
 
     public void SetColor(int index)
-    {
-        currentColorIndex = index;
-        ApplyColor();
-        UpdateUI();
-    }
+{
+    currentColorIndex = index;
+    ApplyColor();
+    PlayerPrefs.SetInt("ColorIndex_" + currentCarIndex, currentColorIndex); // сохраняем выбор
+    PlayerPrefs.Save();
+    UpdateUI();
+}
+
 
     private void ApplyColor()
+{
+    if (carRenderer != null && carColors.Length > currentColorIndex)
     {
-        if (carRenderer != null && carColors.Length > currentColorIndex)
-            carRenderer.material = carColors[currentColorIndex];
+        carRenderer.material = carColors[currentColorIndex];
+    }
+}
+
+
+    
+    private void ApplyTires()
+    {
+        if (tireRenderers != null && tireMaterials.Length > currentTireIndex)
+        {
+            foreach (var renderer in tireRenderers)
+            {
+                Material[] mats = renderer.materials;
+
+                // Убедимся, что у объекта есть второй материал
+                if (mats.Length > 1)
+                {
+                    mats[3] = tireMaterials[currentTireIndex];
+                    renderer.materials = mats;
+                }
+                else
+                {
+                    Debug.LogWarning($"{renderer.name} не имеет второго элемента материала (Element 1)");
+                }
+            }
+        }
+    }
+
+    private void ApplyEngine()
+    {
+        // Удаляем старый двигатель
+        if (currentEngine != null)
+        {
+            Destroy(currentEngine);
+        }
+
+        // Создаем новый двигатель
+        if (engineModels.Length > currentEngineIndex && engineMountPoint != null)
+        {
+            currentEngine = Instantiate(engineModels[currentEngineIndex], engineMountPoint);
+            currentEngine.transform.localPosition = Vector3.zero;
+            currentEngine.transform.localRotation = Quaternion.identity;
+        }
     }
 
     private void UpdateUI()
-    {
-        carNameText.text = "Модель: " + cars[currentCarIndex].name;
+{
+    if (carNameText != null)
+        carNameText.text = cars[currentCarIndex].name;
+
+    if (engineNameText != null)
         engineNameText.text = "Двигатель: " + engineNames[currentEngineIndex];
+
+    if (tireNameText != null)
         tireNameText.text = "Шины: " + tireNames[currentTireIndex];
-    }
+}
+
 
     public void OpenTirePanel()
     {
-        SaveCarPosition();
-        MoveCarToPreview();
         SetPanelActive(tirePanel);
     }
 
     public void OpenEnginePanel()
     {
-        SaveCarPosition();
-        MoveCarToPreview();
         SetPanelActive(enginePanel);
     }
 
     public void OpenColorPanel()
     {
-        SaveCarPosition();
-        MoveCarToPreview();
         SetPanelActive(colorPanel);
     }
 
-    public void OpenRepairPanel()
-    {
-        SaveCarPosition();
-        MoveCarToPreview();
-        SetPanelActive(repairPanel); // Открывается сразу при запуске сцены
-    }
+   
 
     public void OpenCarSelectionPanel()
     {
-        ReturnCarToOriginal();
         SetPanelActive(carSelectionPanel);
     }
 
     public void ConfirmSelection()
     {
         SaveSelection();
-        // Не переходим на главный экран, остаёмся на текущей панели
     }
 
     void SetPanelActive(GameObject targetPanel)
@@ -157,7 +223,6 @@ public class CarManager : MonoBehaviour
         tirePanel.SetActive(false);
         enginePanel.SetActive(false);
         colorPanel.SetActive(false);
-        repairPanel.SetActive(false);
 
         if (targetPanel != null)
             targetPanel.SetActive(true);
@@ -180,24 +245,9 @@ public class CarManager : MonoBehaviour
         currentColorIndex = PlayerPrefs.GetInt("ColorIndex", 0);
     }
 
-    void SaveCarPosition()
+    void ResetSavedData()
     {
-        GameObject currentCar = cars[currentCarIndex];
-        carOriginalPosition = currentCar.transform.position;
-        carOriginalRotation = currentCar.transform.rotation;
-    }
-
-    void MoveCarToPreview()
-    {
-        GameObject currentCar = cars[currentCarIndex];
-        currentCar.transform.position = previewPoint.position;
-        currentCar.transform.rotation = previewPoint.rotation;
-    }
-
-    void ReturnCarToOriginal()
-    {
-        GameObject currentCar = cars[currentCarIndex];
-        currentCar.transform.position = carOriginalPosition;
-        currentCar.transform.rotation = carOriginalRotation;
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
 }

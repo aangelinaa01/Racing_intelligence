@@ -55,10 +55,10 @@ public class MouseController : MonoBehaviour
     {
         switch (objectName)
         {
-            case "Шина1":
-            case "Шина2":
-            case "Шина3":
-            case "Шина4":
+            case "FrontLeft":
+            case "FrontRight":
+            case "RearLeft":
+            case "RearRight":
                 return "Шины";
             case "Motor":
                 return "Двигатель";

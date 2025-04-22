@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PanelOpener : MonoBehaviour
 {
-    public enum PanelType { Tires, Engine, Color, Repair } 
+    public enum PanelType { Tires, Engine, Color } 
     public PanelType panelToOpen;
     public CarManager carManager;
 
@@ -21,9 +21,7 @@ public class PanelOpener : MonoBehaviour
             case PanelType.Color:
                 carManager.OpenColorPanel();
                 break;
-            case PanelType.Repair:
-                carManager.OpenRepairPanel(); 
-                break;
+            
         }
     }
 }
