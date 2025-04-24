@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ObjectPreviewer : MonoBehaviour
+public class ObjectPrev : MonoBehaviour
 {
     public GameObject associatedPanel;
     public GameObject carSelectionPanel;
@@ -15,6 +15,8 @@ public class ObjectPreviewer : MonoBehaviour
     private bool isPreviewing = false;
     private bool isMoving = false;
 
+    private static ObjectPrev activePreview; // Только один активный объект
+
     void Start()
     {
         originalPosition = transform.position;
@@ -23,33 +25,38 @@ public class ObjectPreviewer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isPreviewing)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.gameObject == gameObject)
             {
                 if (!isMoving)
-                {
-                    if (isPreviewing)
-                        StartCoroutine(MoveBack());
-                    else
-                        StartCoroutine(MoveToCamera());
-                }
+                    StartCoroutine(MoveToCamera());
             }
         }
     }
 
     IEnumerator MoveToCamera()
     {
-        isMoving = true;
-        ObjectPreviewManager.Instance.RegisterPreview(this);
+        // Закрыть предыдущий активный превью
+        if (activePreview != null && activePreview != this)
+            activePreview.Deactivate();
 
+        activePreview = this;
+
+        isMoving = true;
         Vector3 targetPos = Camera.main.transform.position + Camera.main.transform.forward * previewDistance;
-        Vector3 velocity = Vector3.zero;
+
+        Vector3 startPos = transform.position;
+        float journeyLength = Vector3.Distance(startPos, targetPos);
+        float startTime = Time.time;
 
         while (Vector3.Distance(transform.position, targetPos) > 0.01f)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 0.3f);
+            float distCovered = (Time.time - startTime) * moveSpeed;
+            float frac = distCovered / journeyLength;
+
+            transform.position = Vector3.Lerp(startPos, targetPos, frac);
             yield return null;
         }
 
@@ -57,23 +64,40 @@ public class ObjectPreviewer : MonoBehaviour
         isPreviewing = true;
         isMoving = false;
 
+        if (carSelectionPanel != null)
+            carSelectionPanel.SetActive(false);
+
         if (associatedPanel != null)
             associatedPanel.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        if (!isPreviewing || isMoving) return;
+
+        StartCoroutine(MoveBack());
     }
 
     IEnumerator MoveBack()
     {
         isMoving = true;
 
-        if (associatedPanel != null && associatedPanel != carSelectionPanel)
+        if (associatedPanel != null)
             associatedPanel.SetActive(false);
 
-        Vector3 velocity = Vector3.zero;
+        if (carSelectionPanel != null)
+            carSelectionPanel.SetActive(true);
+
+        Vector3 startPos = transform.position;
+        float journeyLength = Vector3.Distance(startPos, originalPosition);
+        float startTime = Time.time;
 
         while (Vector3.Distance(transform.position, originalPosition) > 0.01f)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, originalPosition, ref velocity, 0.3f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, originalRotation, Time.deltaTime * returnSpeed);
+            float distCovered = (Time.time - startTime) * moveSpeed;
+            float frac = distCovered / journeyLength;
+
+            transform.position = Vector3.Lerp(startPos, originalPosition, frac);
             yield return null;
         }
 
@@ -82,19 +106,13 @@ public class ObjectPreviewer : MonoBehaviour
         isPreviewing = false;
         isMoving = false;
 
-        ObjectPreviewManager.Instance.ClearPreview(this);
-    }
-
-    public void ForceReturn()
-    {
-        StopAllCoroutines();
-        StartCoroutine(MoveBack());
+        if (activePreview == this)
+            activePreview = null;
     }
 
     void OnDisable()
     {
         StopAllCoroutines();
-
         transform.position = originalPosition;
         transform.rotation = originalRotation;
         isPreviewing = false;
@@ -103,6 +121,22 @@ public class ObjectPreviewer : MonoBehaviour
         if (associatedPanel != null && associatedPanel != carSelectionPanel)
             associatedPanel.SetActive(false);
 
-        ObjectPreviewManager.Instance.ClearPreview(this);
+        if (activePreview == this)
+            activePreview = null;
     }
+
+    // Метод для ручного возврата с кнопки "Назад"
+    public void ReturnFromButton()
+{
+
+    if (isPreviewing && !isMoving)
+    {
+        StartCoroutine(MoveBack());
+    }
+}
+public static ObjectPrev GetActivePreview()
+{
+    return activePreview;
+}
+
 }
