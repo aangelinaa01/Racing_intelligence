@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BodyEmission
-    second: {fileID: 2100000, guid: f97e59c322d6e45e78694de26a8619f8, type: 2}
+    second: {fileID: 2100000, guid: a0d58da015f2fdf43b816c024734b7f6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BodyGlass
-    second: {fileID: 2100000, guid: 8cc05860504684b309c51551f267e298, type: 2}
+    second: {fileID: 2100000, guid: 57d2785fcf6fe92489ce3153e6671548, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BodyGlossy
-    second: {fileID: 2100000, guid: 805a01b91e826445a8466479687b99fc, type: 2}
+    second: {fileID: 2100000, guid: 037df46dd165c57458501628a81370e9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BodyMatte
-    second: {fileID: 2100000, guid: 68375f5db8c9c449983711407e73c515, type: 2}
+    second: {fileID: 2100000, guid: 8693a1e63dea8a2408f9b6c6f7687601, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
