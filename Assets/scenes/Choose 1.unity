@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 18348837425af0b4a9d570b45dfc185b, type: 3}
+  m_Texture: {fileID: 2800000, guid: 887048e641de5da478e842dd36709a10, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1659,7 +1659,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1277522125}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GoToChoose2
+        m_MethodName: GoToTrack1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

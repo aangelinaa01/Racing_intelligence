@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1747692703",
+        "python_version": "3.10.10 (tags/v3.10.10:aad5f6a, Feb  7 2023, 17:20:36) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\aange\\Desktop\\Racing_intelligence\\mlagents_venv\\Scripts\\mlagents-learn config/car_config.yaml --run-id=Car --resume --torch-device=cuda",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.7.0+cpu",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1747692787"
+    },
+    "total": 84.16165069999988,
+    "count": 1,
+    "self": 0.04109129999415018,
+    "children": {
+        "run_training.setup": {
+            "total": 0.15119200000481214,
+            "count": 1,
+            "self": 0.15119200000481214
+        },
+        "TrainerController.start_learning": {
+            "total": 83.96936740000092,
+            "count": 1,
+            "self": 0.002103299993905239,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 83.96716280000692,
+                    "count": 1,
+                    "self": 83.96716280000692
+                },
+                "TrainerController._save_models": {
+                    "total": 0.00010130000009667128,
+                    "count": 1,
+                    "self": 0.00010130000009667128
+                }
+            }
+        }
+    }
+}

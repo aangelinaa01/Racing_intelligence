@@ -48,28 +48,36 @@ public class FrameController : MonoBehaviour
             Screen.SetResolution(selectedResolution.x, selectedResolution.y, true);
         }
 
-        // Установка качества графики
-        int qualityIndex = qualityDropdown.value;
-        int unityQualityIndex = qualityIndex + 1; // Low = 1, Medium = 2, High = 3
+        // Установка качества графики (низкий, средний, высокий)
+        int selectedDropdownQuality = qualityDropdown.value;
 
-        if (unityQualityIndex < QualitySettings.names.Length)
+        // Сопоставим индексам Dropdown свои уровни качества
+      
+        int[] mappedQualityLevels = new int[] { 0, 1, 2 };
+
+        if (selectedDropdownQuality >= 0 && selectedDropdownQuality < mappedQualityLevels.Length)
         {
-            QualitySettings.SetQualityLevel(unityQualityIndex);
-            Debug.Log($"Графика установлена на: {QualitySettings.names[unityQualityIndex]}");
-        }
-        else
-        {
-            Debug.LogWarning("Недопустимый уровень качества!");
+            int unityQualityIndex = mappedQualityLevels[selectedDropdownQuality];
+            if (unityQualityIndex < QualitySettings.names.Length)
+            {
+                QualitySettings.SetQualityLevel(unityQualityIndex);
+                Debug.Log($"Графика установлена на: {QualitySettings.names[unityQualityIndex]}");
+            }
+            else
+            {
+                Debug.LogWarning("Недопустимый уровень качества!");
+            }
         }
 
         // Сохранение настроек
         PlayerPrefs.SetInt("ResolutionIndex", resIndex);
-        PlayerPrefs.SetInt("QualityIndex", qualityIndex);
+        PlayerPrefs.SetInt("QualityIndex", selectedDropdownQuality);
         PlayerPrefs.SetFloat("Volume", volumeSlider.value);
         PlayerPrefs.Save();
 
         Debug.Log("Настройки применены: " + resolutions[resIndex] + ", звук: " + Mathf.RoundToInt(volumeSlider.value * 100f) + "%");
     }
+
 
     public void ChangeVolume(float value)
     {

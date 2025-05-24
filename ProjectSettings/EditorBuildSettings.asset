@@ -14,9 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/Settings.unity
     guid: 216ab34d3f09cbe45981712016c36087
-  - enabled: 0
-    path: Assets/scenes/Garage.unity
-    guid: d8f6f5f7dd908614296bd02de663a89d
+  - enabled: 1
+    path: Assets/scenes/Garage 1.unity
+    guid: a59392627c9cbe3478e0ea0f258041eb
   - enabled: 1
     path: Assets/scenes/Choose 1.unity
     guid: acdf1f88d521835448552b23b7270e01
@@ -29,9 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/track_2.unity
     guid: 895ed4a1a3f796149abe0b1d82eb3003
-  - enabled: 1
-    path: Assets/scenes/Garage 1.unity
-    guid: a59392627c9cbe3478e0ea0f258041eb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

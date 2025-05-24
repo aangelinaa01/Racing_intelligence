@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToGarage()
     {
-        SceneManager.LoadScene("Garage1");
+        SceneManager.LoadScene("Garage 1");
     }
 
     public void GoToTrack1()
