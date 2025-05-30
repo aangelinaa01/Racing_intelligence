@@ -37,6 +37,13 @@ public class MouseController : MonoBehaviour
             RemoveHighlightFromAll();
             lastTag = "";
         }
+        if (ObjectPrev.GetActivePreview() != null)
+        {
+            HideDetailName();
+            RemoveHighlightFromAll();
+            return; // отключить наведение при активном подлёте
+        }
+
     }
 
     void ShowDetailName(string name)
@@ -60,7 +67,9 @@ public class MouseController : MonoBehaviour
             case "RearLeft":
             case "RearRight":
                 return "Шины";
-            case "Motor":
+            case "Electric motor":
+            case "V6":
+            case "V8":
                 return "Двигатель";
             default:
                 return objectName;

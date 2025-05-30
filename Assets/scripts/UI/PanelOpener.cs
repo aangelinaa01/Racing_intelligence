@@ -21,6 +21,7 @@ public class PanelOpener : MonoBehaviour
             case PanelType.Color:
                 carManager.OpenColorPanel();
                 break;
+               
             
         }
     }
