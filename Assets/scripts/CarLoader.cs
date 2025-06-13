@@ -46,6 +46,7 @@ public class CarLoader : MonoBehaviour
             
             carRenderer.materials = mats;
         }
+        
 
         // Применяем шины
         if (tireRenderers != null && tireMaterials.Length > savedTireIndex)
@@ -53,7 +54,7 @@ public class CarLoader : MonoBehaviour
             foreach (var renderer in tireRenderers)
             {
                 Material[] mats = renderer.materials;
-                
+
                 if (mats.Length > 1)
                 {
                     mats[3] = tireMaterials[savedTireIndex];

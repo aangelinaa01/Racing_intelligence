@@ -23,11 +23,5 @@ public class ObjectHover : MonoBehaviour
         outline = GetComponent<Outline>();
         if (outline != null) outline.enabled = false;
     }
-    //void Update()
-    //{
-    //    if (outline != null)
-    //        Debug.Log(gameObject.name + ": Outline enabled = " + outline.enabled);
-    //}
-
 
 }

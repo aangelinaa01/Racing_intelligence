@@ -13,6 +13,12 @@ public class MouseController : MonoBehaviour
 
     void Update()
     {
+        if (ObjectPrev.GetActivePreview() != null)
+        {
+            HideDetailName();
+            RemoveHighlightFromAll();
+            return;
+        }
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -26,8 +32,8 @@ public class MouseController : MonoBehaviour
 
             if (currentTag != lastTag)
             {
-                RemoveHighlightFromAll(); // убрать старую подсветку
-                HighlightGroup(currentTag); // подсветить новую группу
+                RemoveHighlightFromAll(); 
+                HighlightGroup(currentTag); 
                 lastTag = currentTag;
             }
         }
@@ -37,12 +43,7 @@ public class MouseController : MonoBehaviour
             RemoveHighlightFromAll();
             lastTag = "";
         }
-        if (ObjectPrev.GetActivePreview() != null)
-        {
-            HideDetailName();
-            RemoveHighlightFromAll();
-            return; // отключить наведение при активном подлёте
-        }
+        
 
     }
 

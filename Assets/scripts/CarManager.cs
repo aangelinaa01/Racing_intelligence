@@ -127,6 +127,20 @@ public class CarManager : MonoBehaviour
             currentEngine.transform.localRotation = Quaternion.identity;
         }
     }
+    [System.Serializable]
+    public class EngineSpecs
+    {
+        public string name;
+        public float power; // л.с.
+        public float torque; // Нм
+    }
+
+    public EngineSpecs[] engineSpecs = new EngineSpecs[]
+    {
+        new EngineSpecs { name = "V6", power = 283f, torque = 260f },
+        new EngineSpecs { name = "V8", power = 520f, torque = 480f }
+        
+    };
     private void ApplyColor()
     {
         if (carColors.Length <= currentColorIndex || carRenderer == null) return;

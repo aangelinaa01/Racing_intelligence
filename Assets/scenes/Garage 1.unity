@@ -814,7 +814,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1555231579}
         m_TargetAssemblyTypeName: CarManager, Assembly-CSharp
-        m_MethodName: ConfirmSelection
+        m_MethodName: SaveCurrentSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1264,7 +1264,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1555231579}
         m_TargetAssemblyTypeName: CarManager, Assembly-CSharp
-        m_MethodName: ConfirmSelection
+        m_MethodName: SaveCurrentSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4481,7 +4481,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1555231579}
         m_TargetAssemblyTypeName: CarManager, Assembly-CSharp
-        m_MethodName: ConfirmSelection
+        m_MethodName: SaveCurrentSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5639,6 +5639,13 @@ MonoBehaviour:
   savedColorIndex: 0
   savedTireIndex: 0
   savedEngineIndex: 0
+  engineSpecs:
+  - name: V6
+    power: 283
+    torque: 260
+  - name: V8
+    power: 520
+    torque: 480
 --- !u!4 &1555231580
 Transform:
   m_ObjectHideFlags: 0
@@ -7665,7 +7672,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1555231579}
         m_TargetAssemblyTypeName: CarManager, Assembly-CSharp
-        m_MethodName: ConfirmSelection
+        m_MethodName: SaveCurrentSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
