@@ -3,6 +3,7 @@ using UnityEngine;
 public class ObjectHover : MonoBehaviour
 {
     public Outline outline; 
+    
     private void Start()
     {
         outline = GetComponent<Outline>();
@@ -18,10 +19,6 @@ public class ObjectHover : MonoBehaviour
     {
         outline.enabled = false;
     }
-    private void Awake()
-    {
-        outline = GetComponent<Outline>();
-        if (outline != null) outline.enabled = false;
-    }
+   
 
 }

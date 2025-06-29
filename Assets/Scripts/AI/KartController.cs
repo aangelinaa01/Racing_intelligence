@@ -8,6 +8,21 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class KartController : MonoBehaviour
 {
+   public static KartController Instance;
+
+   private void Awake()
+         {
+   //    if (Instance == null)
+   //    {
+   //       Instance = this;
+   //       DontDestroyOnLoad(gameObject);
+   //    }
+   //    else
+   //    {
+   //       Destroy(gameObject);
+   //    }
+        _spawnPointManager = FindObjectOfType<SpawnPointManager>();
+    }
    private SpawnPointManager _spawnPointManager;
    
    public Transform kartModel;
@@ -28,10 +43,7 @@ public class KartController : MonoBehaviour
    public Transform backWheels;
    public Transform steeringWheel;
 
-   public void Awake()
-   {
-      _spawnPointManager = FindObjectOfType<SpawnPointManager>();
-   }
+
 
    public void ApplyAcceleration(float input)
    {

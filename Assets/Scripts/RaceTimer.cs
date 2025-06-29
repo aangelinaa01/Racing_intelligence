@@ -15,7 +15,7 @@ public class RaceTimer : MonoBehaviour
 
     private int finishLinePasses = 0;
     public int requiredLaps = 1; // Количество кругов (проездов после старта)
-
+   
     void Start()
     {
          timerText.text = "Время: 0.00";

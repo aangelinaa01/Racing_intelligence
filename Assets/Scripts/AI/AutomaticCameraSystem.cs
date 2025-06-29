@@ -16,6 +16,7 @@ public class AutomaticCameraSystem : MonoBehaviour
     private bool manualOverride = false;
     private int currentManualIndex = -1;
 
+   
     private void Start()
     {
         setCameraActive(0);

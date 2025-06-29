@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,13 +23,30 @@ public class CarController : MonoBehaviour
     [SerializeField] private WheelCollider rearRightWheelCollider;
 
     [SerializeField] private Transform frontLeftWheelTransform;
-    [SerializeField] private Transform frontRightWheeTransform;
+    [SerializeField] private Transform frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+    [SerializeField] private float flipCheckDelay = 3f;
+    [SerializeField] private float flipAngleThreshold = 60f;
+
+    private float flipTimer = 0f;
+    public bool canDrive = false;
+   
+
+    private void Start()
+    {
+        LoadEngineSettings();
+    }
+
+    private void Update()
+    {
+        CheckIfFlipped();
+    }
+
     private void FixedUpdate()
     {
-        if (!canDrive) return; // ← Блокируем управление до разрешения
+        if (!canDrive) return;
 
         GetInput();
         HandleMotor();
@@ -38,13 +54,7 @@ public class CarController : MonoBehaviour
         UpdateWheels();
     }
 
-
-    private void GetInput()
-    {
-        horizontalInput = Input.GetAxis(HORIZONTAL);
-        verticalInput = Input.GetAxis(VERTICAL);
-        isBreaking = Input.GetKey(KeyCode.Space);
-    }
+    
 
     private void HandleMotor()
     {
@@ -72,7 +82,7 @@ public class CarController : MonoBehaviour
     private void UpdateWheels()
     {
         UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
-        UpdateSingleWheel(frontRightWheelCollider, frontRightWheeTransform);
+        UpdateSingleWheel(frontRightWheelCollider, frontRightWheelTransform); 
         UpdateSingleWheel(rearRightWheelCollider, rearRightWheelTransform);
         UpdateSingleWheel(rearLeftWheelCollider, rearLeftWheelTransform);
     }
@@ -85,22 +95,11 @@ public class CarController : MonoBehaviour
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
     }
-    [SerializeField] private float flipCheckDelay = 3f; // Задержка перед воскрешением
-    [SerializeField] private float flipAngleThreshold = 60f; // Допустимый наклон
-    private float flipTimer = 0f;
-    public bool canDrive = false; // <- управление будет включено только после старта
-
-
-    private void Update()
-    {
-        CheckIfFlipped();
-    }
 
     private void CheckIfFlipped()
     {
         float upDot = Vector3.Dot(transform.up, Vector3.up);
 
-        // Если машина перевернулась (up вектор направлен вниз или сильно вбок)
         if (upDot < Mathf.Cos(flipAngleThreshold * Mathf.Deg2Rad))
         {
             flipTimer += Time.deltaTime;
@@ -113,22 +112,24 @@ public class CarController : MonoBehaviour
         }
         else
         {
-            flipTimer = 0f; // Сброс таймера, если машина в порядке
+            flipTimer = 0f;
         }
     }
-
+    private void GetInput()
+    {
+        horizontalInput = Input.GetAxis(HORIZONTAL);
+        verticalInput = Input.GetAxis(VERTICAL);
+        isBreaking = Input.GetKey(KeyCode.Space);
+    }
     private void ResetCarRotation()
     {
         Vector3 position = transform.position;
-        position.y += 1f; // Поднять немного над землёй
-
+        position.y += 1f;
         transform.position = position;
 
-        // Повернуть строго вверх, сохранить текущий поворот по Y
         Vector3 upRotation = new Vector3(0f, transform.eulerAngles.y, 0f);
         transform.eulerAngles = upRotation;
 
-        // Также можно сбросить скорость, если нужно
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -136,25 +137,14 @@ public class CarController : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
     }
-    private void Start()
-    {
-        // Загружаем настройки двигателя
-        LoadEngineSettings();
-    }
 
     private void LoadEngineSettings()
     {
         int savedEngineIndex = PlayerPrefs.GetInt("EngineIndex", 0);
-        
-        // Получаем спецификации двигателя из CarManager
+
         CarManager.EngineSpecs engine = CarManager.Instance.engineSpecs[savedEngineIndex];
-        
-        // Конвертируем л.с. в значение, подходящее для motorForce (может потребоваться настройка)
-        motorForce = engine.torque * 2f; // Множитель можно настроить под вашу физику
-        
-        // Также можно использовать power, если нужно
-        // breakForce можно тоже сделать зависимым от двигателя
+
+        motorForce = engine.torque * 2f;
         breakForce = engine.torque * 3f;
     }
-
 }

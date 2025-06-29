@@ -5,6 +5,7 @@ public class PanelOpener : MonoBehaviour
     public enum PanelType { Tires, Engine, Color } 
     public PanelType panelToOpen;
     public CarManager carManager;
+    
 
     private void OnMouseDown()
     {
@@ -21,8 +22,8 @@ public class PanelOpener : MonoBehaviour
             case PanelType.Color:
                 carManager.OpenColorPanel();
                 break;
-               
-            
+
+
         }
     }
 }

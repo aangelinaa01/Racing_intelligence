@@ -100,7 +100,7 @@ public class CarManager : MonoBehaviour
                 // Убедимся, что у объекта есть второй материал
                 if (mats.Length > 1)
                 {
-                    mats[3] = tireMaterials[currentTireIndex];
+                    mats[2] = tireMaterials[currentTireIndex];
                     renderer.materials = mats;
                 }
                 else
@@ -277,6 +277,7 @@ public class CarManager : MonoBehaviour
         currentEngineIndex = savedEngineIndex;
         currentTireIndex = savedTireIndex;
         currentColorIndex = savedColorIndex;
+        
     }
 
     public void ResetSavedData()

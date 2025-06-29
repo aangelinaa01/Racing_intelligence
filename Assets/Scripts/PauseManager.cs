@@ -5,13 +5,15 @@ using UnityEngine.UI;
 public class PauseManager : MonoBehaviour
 {
     [Header("UI Settings")]
-    [SerializeField] private GameObject pausePanel;  // Панель паузы
-    [SerializeField] private GameObject infoPanel;   // Панель информации
-    [SerializeField] private Button pauseButton;     // Кнопка паузы
-    [SerializeField] private Button resumeButton;    // Кнопка "Продолжить"
-    [SerializeField] private Button restartButton;   // Кнопка "Рестарт"
-    [SerializeField] private Button infoButton;      // Кнопка для открытия инфо панели
-    [SerializeField] private Button closeInfoButton; // Кнопка закрытия инфо панели
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject infoPanel;
+    [SerializeField] private Button pauseButton;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button infoButton;       
+    [SerializeField] private Button closeInfoButton;  
+    [SerializeField] private Button loadSceneButton; 
+    [SerializeField] private string sceneToLoad;
 
     private bool isPaused = false;
 
@@ -19,56 +21,71 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        // Назначаем действия кнопкам
-        pauseButton.onClick.AddListener(TogglePause);
-        resumeButton.onClick.AddListener(TogglePause);
-        restartButton.onClick.AddListener(RestartLevel);
+        TryAddListener(pauseButton, TogglePause);
+        TryAddListener(resumeButton, TogglePause);
+        TryAddListener(restartButton, RestartLevel);
+        TryAddListener(infoButton, OpenInfoPanel);
+        TryAddListener(closeInfoButton, CloseInfoPanel);
 
-        infoButton.onClick.AddListener(OpenInfoPanel);
-        closeInfoButton.onClick.AddListener(CloseInfoPanel);
+        if (loadSceneButton != null)
+            loadSceneButton.onClick.AddListener(() => LoadSceneAndClosePanels(sceneToLoad));
+        else Debug.LogWarning("loadSceneButton not assigned.");
 
-        // Панели скрыты в начале
-        pausePanel.SetActive(false);
-        infoPanel.SetActive(false);
+        if (pausePanel != null) pausePanel.SetActive(false);
+        if (infoPanel != null) infoPanel.SetActive(false);
 
-        // Курсор всегда активен
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
+    void TryAddListener(Button btn, UnityEngine.Events.UnityAction action)
+    {
+        if (btn != null)
+            btn.onClick.AddListener(action);
+        else
+            Debug.LogWarning($"Button {action.Method.Name} not assigned.");
+    }
+
     private void Update()
     {
-        // Нажатие ESC включает/выключает паузу
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
     }
 
-    // Переключение паузы
     public void TogglePause()
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0f : 1f;
-        pausePanel.SetActive(isPaused);
+
+        if (pausePanel != null)
+            pausePanel.SetActive(isPaused);
     }
 
-    // Перезапуск уровня
     public void RestartLevel()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // Открытие инфо панели
     public void OpenInfoPanel()
     {
-        infoPanel.SetActive(true);
+        if (infoPanel != null)
+            infoPanel.SetActive(true);
     }
 
-    // Закрытие инфо панели
     public void CloseInfoPanel()
     {
-        infoPanel.SetActive(false);
+        if (infoPanel != null)
+            infoPanel.SetActive(false);
+    }
+
+    public void LoadSceneAndClosePanels(string sceneName)
+    {
+        Time.timeScale = 1f;
+        if (pausePanel != null) pausePanel.SetActive(false);
+        if (infoPanel != null) infoPanel.SetActive(false);
+        SceneManager.LoadScene(sceneName);
     }
 }

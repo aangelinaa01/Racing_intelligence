@@ -20,7 +20,7 @@ public class ObjectPrev : MonoBehaviour
     private static ObjectPrev activePreview;
 
     private Vector3 lastMousePosition;
-
+   
     void Start()
     {
         originalPosition = transform.position;

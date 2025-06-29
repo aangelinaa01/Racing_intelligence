@@ -65,6 +65,10 @@ PrefabInstance:
       value: tire
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2ff3ad9d09111564dba5880b2e7cdef2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ff3ad9d09111564dba5880b2e7cdef2, type: 3}
       propertyPath: m_TagString
       value: Tire
       objectReference: {fileID: 0}

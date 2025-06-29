@@ -7,7 +7,7 @@ public class CarPartClick : MonoBehaviour
     private Transform selectedPart;
     private Vector3 originalPosition;
     private bool isMoving = false;
-
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && !isMoving) 

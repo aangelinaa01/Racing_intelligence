@@ -712,6 +712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12831cd5da5e7cd4a99dc934e9eb5aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsPanel: {fileID: 0}
+  informationPanel: {fileID: 0}
 --- !u!4 &1277522126
 Transform:
   m_ObjectHideFlags: 0
@@ -739,8 +741,9 @@ GameObject:
   - component: {fileID: 1338374976}
   - component: {fileID: 1338374975}
   - component: {fileID: 1338374974}
+  - component: {fileID: 1338374977}
   m_Layer: 5
-  m_Name: Button
+  m_Name: "\u0413\u0430\u0440\u0430\u0436"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,9 +812,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1277522125}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GoToGarage
+      - m_Target: {fileID: 1338374977}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: Transition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -859,6 +862,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338374972}
   m_CullTransparentMesh: 1
+--- !u!114 &1338374977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338374972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4666738bc390a42970afb910d6a2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNumber: 3
 --- !u!1 &1686178647
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +887,7 @@ GameObject:
   - component: {fileID: 1686178651}
   - component: {fileID: 1686178650}
   - component: {fileID: 1686178649}
+  - component: {fileID: 1686178652}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -941,9 +958,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1277522125}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GoToMainMenu
+      - m_Target: {fileID: 1686178652}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: Transition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -991,6 +1008,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686178647}
   m_CullTransparentMesh: 1
+--- !u!114 &1686178652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686178647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4666738bc390a42970afb910d6a2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNumber: 0
 --- !u!1 &1801009195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,8 +1108,9 @@ GameObject:
   - component: {fileID: 1812011876}
   - component: {fileID: 1812011875}
   - component: {fileID: 1812011874}
+  - component: {fileID: 1812011877}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: "\u0418\u0418"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,9 +1179,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1277522125}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GoToTrack1
+      - m_Target: {fileID: 1812011877}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: Transition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1198,6 +1229,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812011872}
   m_CullTransparentMesh: 1
+--- !u!114 &1812011877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812011872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4666738bc390a42970afb910d6a2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNumber: 5
 --- !u!1001 &2013794990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1249,6 +1293,106 @@ PrefabInstance:
     - target: {fileID: 4148414609775521524, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
       propertyPath: m_Name
       value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148414609775521524, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6168268545820973329, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5054497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6168268545820973329, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.50869054
+      objectReference: {fileID: 0}
+    - target: {fileID: 6168268545820973329, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.55168
+      objectReference: {fileID: 0}
+    - target: {fileID: 6168268545820973329, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.7622
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573282111803783254, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756557803326921842, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5054497
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756557803326921842, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.50869054
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756557803326921842, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.55168
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756557803326921842, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15.6943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766162064599343795, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5054497
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766162064599343795, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.50869054
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766162064599343795, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.55168
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766162064599343795, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.7622
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980502009345197138, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.9271319
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980502009345197138, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.3543444
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980502009345197138, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3393455
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980502009345197138, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.5544
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980502009345197138, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1606
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980502009345197138, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.2064
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118969355613308961, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5054497
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118969355613308961, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.50869054
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118969355613308961, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.3353
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118969355613308961, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5512
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118969355613308961, guid: f8eb07fe8923a894a8520b31374f1552, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15.5025
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1967919528924311913}
   - component: {fileID: 4157837026667147311}
   - component: {fileID: 4682261640027050088}
+  - component: {fileID: 2111846774802424697}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -95,6 +96,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2111846774802424697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271862657627376087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 337170280590ad248a58980985cde337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motorForce: 1500
+  breakForce: 3000
+  maxSteerAngle: 30
+  frontLeftWheelCollider: {fileID: 1890109720093507223}
+  frontRightWheelCollider: {fileID: 707166084615928676}
+  rearLeftWheelCollider: {fileID: 4096326417868946843}
+  rearRightWheelCollider: {fileID: 6441757680417862837}
+  frontLeftWheelTransform: {fileID: 8179533285321624257}
+  frontRightWheelTransform: {fileID: 389189119624377440}
+  rearLeftWheelTransform: {fileID: 8951297609412099701}
+  rearRightWheelTransform: {fileID: 6348039271580271295}
+  flipCheckDelay: 3
+  flipAngleThreshold: 60
+  canDrive: 0
 --- !u!1 &1283704735827238956
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +577,6 @@ GameObject:
   - component: {fileID: 7657591732631069326}
   - component: {fileID: 1316311241987441246}
   - component: {fileID: 8925478834736845649}
-  - component: {fileID: 3739383667124027570}
   m_Layer: 0
   m_Name: car511
   m_TagString: Untagged
@@ -623,29 +649,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5952206, y: 1.5144296, z: 6.2220216}
   m_Center: {x: -0.0559721, y: 0.7625716, z: 0.13686728}
---- !u!114 &3739383667124027570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2902855328520931144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 337170280590ad248a58980985cde337, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motorForce: 1000
-  breakForce: 3000
-  maxSteerAngle: 30
-  frontLeftWheelCollider: {fileID: 1890109720093507223}
-  frontRightWheelCollider: {fileID: 707166084615928676}
-  rearLeftWheelCollider: {fileID: 4096326417868946843}
-  rearRightWheelCollider: {fileID: 6441757680417862837}
-  frontLeftWheelTransform: {fileID: 8179533285321624257}
-  frontRightWheeTransform: {fileID: 389189119624377440}
-  rearLeftWheelTransform: {fileID: 8951297609412099701}
-  rearRightWheelTransform: {fileID: 6348039271580271295}
 --- !u!1 &3428411900689670882
 GameObject:
   m_ObjectHideFlags: 0
