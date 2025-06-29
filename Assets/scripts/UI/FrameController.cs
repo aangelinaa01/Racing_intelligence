@@ -18,7 +18,7 @@ public class FrameController : MonoBehaviour
         new Vector2Int(2560, 1440),
         new Vector2Int(3840, 2160)
     };
-
+    
     private void Start()
     {
         

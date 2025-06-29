@@ -10,7 +10,7 @@ public class MouseController : MonoBehaviour
 
     private string lastTag = "";
     private GameObject[] highlightedObjects;
-
+    
     void Update()
     {
         if (ObjectPrev.GetActivePreview() != null)
